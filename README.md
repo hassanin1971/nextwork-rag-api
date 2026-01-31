@@ -1,33 +1,33 @@
-# 🚀 RAG-API: Kubernetes Knowledge Base with FastAPI & Ollama
+# RAG-API: Kubernetes Intelligent Knowledge Base
 
-نظام متكامل للاسترجاع المعزز بالتوليد (RAG) مصمم لتقديم إجابات ذكية حول مستندات Kubernetes باستخدام قاعدة بيانات متجهة (Vector Database) ونموذج لغة محلي (LLM) .
-
----
-
-## 🏗️ Project Architecture (الهيكل الهندسي)
-
-يعتمد المشروع على فلسفة تقسيم المهام (Separation of Concerns) لضمان الكفاءة :
-* **Ingestion Layer (`embed.py`):** تحويل النصوص الخام إلى تمثيلات رقمية (Embeddings) .
-* **Storage Layer (ChromaDB):** قاعدة بيانات متجهة تخزن المعنى الرياضي للنصوص داخل مجلد `db` .
-* **API Layer (`app.py`):** واجهة FastAPI لاستقبال الاستعلامات ومعالجة المنطق البرمجي .
-* **Inference Layer (Ollama):** المحرك التوليدي الذي يصيغ الإجابات النهائية بناءً على السياق المستخرج .
+This project implements a complete **Retrieval-Augmented Generation (RAG)** system. It is designed to provide intelligent, context-aware answers regarding Kubernetes documentation by integrating a Vector Database with a local Large Language Model (LLM).
 
 ---
 
-## 🛠️ Technical Specifications (المواصفات التقنية)
+## System Architecture
 
-### 🧬 Mathematical Foundation (الأسس الرياضية)
-تعتمد عملية البحث على حساب **Cosine Similarity** بين المتجهات النصية في فضاء متعدد الأبعاد :
-$$\text{similarity} = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|}$$
+The project follows a modular design to ensure high performance and scalability:
 
-### 🐳 Docker Infrastructure (البنية التحتية)
-* **Containerization:** تم تغليف المشروع كلياً باستخدام Docker لضمان ثبات البيئة .
-* **Networking:** استخدام `host.docker.internal` لربط الحاوية المعزولة بمحرك Ollama على الجهاز المضيف .
+* **Ingestion Layer (embed.py):** Converts raw text from documentation into numerical vector representations for the database.
+* **Storage Layer (ChromaDB):** A persistent vector database that stores the semantic meaning of data within the db directory.
+* **API Layer (app.py):** A robust FastAPI interface that handles user queries and orchestrates the RAG workflow.
+* **Inference Layer (Ollama):** The local generative engine that crafts final responses based on retrieved context.
 
 ---
 
-## 🚀 How to Run (كيفية التشغيل)
+## Technical Key Features
 
-### 1. Build the Image
+* **Local LLM Integration:** Uses Ollama to run models locally, ensuring data privacy and reducing latency.
+* **Persistent Vector Search:** Utilizes ChromaDB to maintain a long-term knowledge base that survives container restarts.
+* **Dockerized Environment:** Fully containerized for consistent deployment across different environments.
+* **Cross-Platform Networking:** Configured to bridge the gap between Docker containers and host-managed services using specialized network routing.
+
+---
+
+## Installation and Setup
+
+### 1. Build the Docker Image
+Execute the following command in the project root to build the application:
 ```bash
 docker build -t hassanin1971/rag-app .
+
