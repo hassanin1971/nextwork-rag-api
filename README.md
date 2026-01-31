@@ -1,33 +1,50 @@
-# RAG-API: Kubernetes Intelligent Knowledge Base
+# # RAG-API: INTELLIGENT KUBERNETES KNOWLEDGE BASE
 
-This project implements a complete **Retrieval-Augmented Generation (RAG)** system. It is designed to provide intelligent, context-aware answers regarding Kubernetes documentation by integrating a Vector Database with a local Large Language Model (LLM).
-
----
-
-## System Architecture
-
-The project follows a modular design to ensure high performance and scalability:
-
-* **Ingestion Layer (embed.py):** Converts raw text from documentation into numerical vector representations for the database.
-* **Storage Layer (ChromaDB):** A persistent vector database that stores the semantic meaning of data within the db directory.
-* **API Layer (app.py):** A robust FastAPI interface that handles user queries and orchestrates the RAG workflow.
-* **Inference Layer (Ollama):** The local generative engine that crafts final responses based on retrieved context.
+## ## PROJECT OVERVIEW
+This project implements a high-performance **Retrieval-Augmented Generation (RAG)** system. It transforms static documentation into an interactive intelligence layer, allowing users to query Kubernetes data using natural language.
 
 ---
 
-## Technical Key Features
-
-* **Local LLM Integration:** Uses Ollama to run models locally, ensuring data privacy and reducing latency.
-* **Persistent Vector Search:** Utilizes ChromaDB to maintain a long-term knowledge base that survives container restarts.
-* **Dockerized Environment:** Fully containerized for consistent deployment across different environments.
-* **Cross-Platform Networking:** Configured to bridge the gap between Docker containers and host-managed services using specialized network routing.
+## ## CORE TECHNOLOGIES & TOOLS
+* **FastAPI**: High-performance web framework for building the API [cite: 2026-01-19].
+* **ChromaDB**: AI-native open-source vector database for persistent storage [cite: 2026-01-19].
+* **Ollama**: Local engine for running large language models (TinyLlama) [cite: 2026-01-19].
+* **Docker**: Containerization for seamless and isolated deployment [cite: 2026-01-19].
+* **Python**: The core programming language for logic and data processing [cite: 2026-01-19].
 
 ---
 
-## Installation and Setup
+## ## EXECUTION WORKFLOW
 
-### 1. Build the Docker Image
-Execute the following command in the project root to build the application:
+### ### 1. DOCUMENT PROCESSING (k8s.txt)
+The system starts by consuming the **k8s.txt** file, which serves as the primary source of truth [cite: 2026-01-19]. This text document contains the technical knowledge required to answer Kubernetes-related questions [cite: 2026-01-19].
+
+### ### 2. VECTOR EMBEDDINGS (ChromaDB)
+Using `embed.py`, the system performs the following:
+* It reads the content of **k8s.txt** [cite: 2026-01-19].
+* It converts text chunks into high-dimensional **Vector Embeddings** [cite: 2026-01-19].
+* These embeddings are stored persistently in the **ChromaDB** (`/db`) directory, allowing for lightning-fast semantic searches [cite: 2026-01-19].
+
+### ### 3. API DEVELOPMENT (FastAPI)
+The **FastAPI** layer (`app.py`) acts as the brain of the operation:
+* It manages the `/query` endpoint to receive user input [cite: 2026-01-19].
+* It retrieves the most relevant text segments from ChromaDB based on semantic similarity [cite: 2026-01-19].
+
+### ### 4. INTELLIGENT GENERATION (Ollama)
+The retrieved context is passed to **Ollama**:
+* The system utilizes a local LLM to generate precise and human-like answers [cite: 2026-01-19].
+* It ensures that the model only answers based on the provided Kubernetes context [cite: 2026-01-19].
+
+---
+
+## ## DOCKER HUB REPOSITORY
+The official Docker image for this project is available on my Docker Hub profile. You can pull the latest version using the following link:
+
+👉 **[hassanin1971/rag-app:latest](https://hub.docker.com/r/hassanin1971/rag-app)**
+
+---
+
+## ## QUICK START
+To run the container and connect it to your local Ollama instance:
 ```bash
-docker build -t hassanin1971/rag-app .
-
+docker run -d -p 8000:8000 -e OLLAMA_HOST=[http://host.docker.internal:11434](http://host.docker.internal:11434) --name rag-app-final hassanin1971/rag-app
