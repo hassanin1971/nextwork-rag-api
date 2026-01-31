@@ -1,14 +1,21 @@
-# Python virtual environment
+# Python
 venv/
 __pycache__/
 *.pyc
+*.pyo
+*.egg-info/
+.Python
 
-# Local Database (ChromaDB files)
-# يفضل عدم رفعها لأنها تُبنى من ملف k8s.txt
+# Chroma database
 db/
 
-# Environment variables
-.env
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# OS specific files
+# OS
 .DS_Store
+Thumbs.db
