@@ -3,6 +3,11 @@ from fastapi import FastAPI
 import chromadb
 import ollama
 
+use_mock_llm = os.getenv("USE_MOCK_LLM", "0").lower() == "1"
+
+if not use_mock_llm:
+    import ollama
+
 app = FastAPI()
 
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
@@ -15,6 +20,9 @@ collection = chroma.get_or_create_collection("docs")
 def query(q: str):
     results = collection.query(query_texts=[q], n_results=1)
     context = results["documents"][0][0] if results["documents"] else ""
+
+    if use_mock_llm:
+        return {"answer": context}
 
     answer = client.generate(
         model="tinyllama",
