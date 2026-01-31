@@ -1,0 +1,14 @@
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Local Database (ChromaDB files)
+# يفضل عدم رفعها لأنها تُبنى من ملف k8s.txt
+db/
+
+# Environment variables
+.env
+
+# OS specific files
+.DS_Store
